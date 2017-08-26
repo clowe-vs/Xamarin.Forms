@@ -188,7 +188,12 @@ namespace Xamarin.Forms.Platform.Android
 					e.PropertyName == Frame.OutlineColorProperty.PropertyName ||
 					e.PropertyName == Frame.CornerRadiusProperty.PropertyName)
 				{
-					using (var canvas = new ACanvas(_normalBitmap))
+                    // Bugfix # 55559
+                    // https://github.com/xamarin/Xamarin.Forms/commit/da0a9d421c9d1dbb9aa73bf578cf463763168961
+                    if (_normalBitmap == null)
+                        return;
+
+                    using (var canvas = new ACanvas(_normalBitmap))
 					{
 						int width = Bounds.Width();
 						int height = Bounds.Height();
